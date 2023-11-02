@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'consts/consts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,14 +8,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const Text(
-          "Online Bazar",
-          style: TextStyle(),
-        ),
-        centerTitle: true,
+        title:Text(appname)
       ),
       body: Column(children: [
         
+
       ],)
 ,
     );
