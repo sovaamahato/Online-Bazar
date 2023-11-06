@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/home_page.dart';
 
+import 'auth/login_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -14,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   changeScreen(){
    
   Future.delayed(Duration(seconds: 3,),(){
-Get.to(()=>const HomePage());
+Get.to(()=>const LoginScreen());
 
   });
 
