@@ -7,7 +7,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return bgWiddget(Scaffold(
+    return 
+    bgWiddget(Scaffold(
       body: Center(child: Column(children: [
         (context.screenHeight*0.1).heightBox,
         //applogo wodget(its remaining to create)

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/home_page.dart';
+import 'package:online_bazar/widgets/app_logo_widget.dart';
 
 import 'auth/login_screen.dart';
 
@@ -30,24 +31,28 @@ Get.to(()=>const LoginScreen());
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       backgroundColor: const Color.fromARGB(255, 247, 89, 31),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center
           ,children: [
-          Text(
+            Align(alignment: Alignment.topLeft,child: Image.asset(icSplashBg,width: 300,),),
+            20.heightBox,
+            appLogoWidget(),
+            10.heightBox,
+         const Text(
             "Online Bazar",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
+          const Text(
             "version: 1.0.0",
             style: TextStyle(color: Colors.white),
           ),
-          SizedBox(height: 200,),
-          Text("credit:@sova_kushwaha"),
+          Spacer(),
+          const Text("credit:@sova_kushwaha"),
 
         ]),
       ),
