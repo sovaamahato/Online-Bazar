@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../consts/consts.dart';
 
-Widget bgWiddget(Widget? child) {
-  return Container(
-    decoration: const BoxDecoration(
+Widget bgWiddget(Widget? ch) {
+  return Scaffold(
+    body: Container(
+      decoration: const BoxDecoration(
         image: DecorationImage(
-      image: AssetImage(imgBackground,),fit: BoxFit.fill),
-
-
+            image: AssetImage(
+              imgBackground,
+            ),
+            fit: BoxFit.fill),
+      ),
+      child: ch,
+      
     ),
-    child: child,
   );
 }
