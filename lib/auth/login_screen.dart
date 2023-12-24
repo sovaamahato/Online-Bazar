@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:online_bazar/auth/signup_screen.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
 import 'package:online_bazar/widgets/bg_widget.dart';
@@ -42,18 +44,26 @@ class LoginScreen extends StatelessWidget {
                   child: TextButton(
                       onPressed: () {}, child: "Forget Password".text.make())),
               5.heightBox,
+
+              //login button------------------
               MyButton("Login", redColor, whiteColor, () {})
                   .box
                   .width(context.screenWidth - 50)
                   .make(),
               8.heightBox,
+              //text  don not have account -------------------------
               "or Create new account".text.color(fontGrey).make(),
               5.heightBox,
-              MyButton("Sign Up", lightGolden, redColor, () {})
+              //signup button ----------------------
+              MyButton("Sign Up", lightGolden, redColor, () {
+                Get.to(()=>SignUpScreen());
+              })
                   .box
                   .width(context.screenWidth - 50)
                   .make(),
               10.heightBox,
+
+              //google and other ways to login------------------------
               "Login With".text.color(fontGrey).make(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
