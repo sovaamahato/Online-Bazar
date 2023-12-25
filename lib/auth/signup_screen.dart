@@ -10,9 +10,16 @@ import 'package:online_bazar/widgets/my_button.dart';
 
 import '../widgets/app_logo_widget.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   //const SignUpScreen({super.key});
   TextEditingController emailController = TextEditingController();
+
+  bool? isChecked=false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +55,12 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   Checkbox(
                       checkColor: redColor,
-                      value: false,
-                      onChanged: (newvalue) {}),
+                      value: isChecked,
+                      onChanged: (newvalue) {
+                        setState(() {
+                          isChecked=newvalue;
+                        });
+                      }),
                   10.widthBox,
                   Expanded(
                     child: RichText(
@@ -88,7 +99,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               //--------sign up button
                10.heightBox,
-              MyButton("Sign Up", redColor, whiteColor, () {})
+              MyButton("Sign Up",isChecked==true? redColor:lightGolden, isChecked==true?whiteColor:redColor, () {})
                   .box
                   .width(context.screenWidth - 50)
                   .make(),
