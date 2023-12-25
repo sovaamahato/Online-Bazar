@@ -8,6 +8,7 @@ import 'package:online_bazar/widgets/bg_widget.dart';
 import 'package:online_bazar/widgets/custom_textfield.dart';
 import 'package:online_bazar/widgets/my_button.dart';
 
+import '../home_page.dart';
 import '../widgets/app_logo_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -46,7 +47,9 @@ class LoginScreen extends StatelessWidget {
               5.heightBox,
 
               //login button------------------
-              MyButton("Login", redColor, whiteColor, () {})
+              MyButton("Login", redColor, whiteColor, () {
+                Get.to(()=>HomePage());
+              })
                   .box
                   .width(context.screenWidth - 50)
                   .make(),
