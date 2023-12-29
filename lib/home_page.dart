@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
     //body of home pages---
     var navBody = [
       Container(
-        color: Colors.green,
+        color: Colors.purple,
       ),
       Container(
         color: Colors.red,
