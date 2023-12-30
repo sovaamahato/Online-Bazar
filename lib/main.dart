@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:online_bazar/auth/login_screen.dart';
+import 'package:online_bazar/home_screen/home_screen.dart';
 import 'package:online_bazar/splash_screen.dart';
 
-import 'home_page.dart';
+import 'home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +16,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),);
+      home: LoginScreen(),);
   }
 }

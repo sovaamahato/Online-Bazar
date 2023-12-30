@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 import 'package:get/get.dart';
+import 'package:online_bazar/cart_screen/cart_screen.dart';
+import 'package:online_bazar/category_screen/category_screen.dart';
 import 'package:online_bazar/controllers/home_controllers.dart';
+import 'package:online_bazar/home_screen/home_screen.dart';
+import 'package:online_bazar/profile_screen/profile.screen.dart';
 import 'consts/consts.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +17,10 @@ class HomePage extends StatelessWidget {
 
     //body of home pages---
     var navBody = [
-      Container(
-        color: Colors.purple,
-      ),
-      Container(
-        color: Colors.red,
-      ),
-      Container(
-        color: Colors.yellow,
-      ),
-      Container(
-        color: Colors.blue,
-      ),
+      HomeScreen(),
+      CategoryScreen(),
+      CartScreen(),
+      ProfileScreen(),
     ];
 
     //items for bottom navigation bar-----
@@ -57,7 +53,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(appname)),
       body: Obx(()=> Expanded(
-          child: navBody.elementAt(controller.currentNavIndex.value),
+          child: SingleChildScrollView(child: navBody.elementAt(controller.currentNavIndex.value)),
         ),
       ),
       bottomNavigationBar: Obx(

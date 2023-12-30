@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
-import 'package:online_bazar/home_page.dart';
+import 'package:online_bazar/home.dart';
 import 'package:online_bazar/widgets/app_logo_widget.dart';
 
 import 'auth/login_screen.dart';
