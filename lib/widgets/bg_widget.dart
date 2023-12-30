@@ -8,6 +8,7 @@ Widget bgWiddget(Widget? ch) {
     body: Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
+          
             image: AssetImage(
               imgBackground,
             ),

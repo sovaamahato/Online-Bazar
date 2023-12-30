@@ -36,24 +36,24 @@ class Home extends StatelessWidget {
             icCategories,
             width: 26,
           ),
-          label: "Home"),
+          label: "Categories"),
       BottomNavigationBarItem(
           icon: Image.asset(
             icCart,
             width: 26,
           ),
-          label: "Home"),
+          label: "Cart"),
       BottomNavigationBarItem(
           icon: Image.asset(
             icProfile,
             width: 26,
           ),
-          label: "Home"),
+          label: "Profile"),
     ];
     return Scaffold(
       appBar: AppBar(title: Text(appname)),
       body: Obx(()=> Expanded(
-          child: SingleChildScrollView(child: navBody.elementAt(controller.currentNavIndex.value)),
+          child: navBody.elementAt(controller.currentNavIndex.value),
         ),
       ),
       bottomNavigationBar: Obx(
