@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_bazar/consts/consts.dart';
+import 'package:online_bazar/consts/lists.dart';
 
 import 'package:online_bazar/widgets/bg_widget.dart';
 
@@ -9,8 +10,29 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return bgWiddget(
-      ch:  Container(),
-       title: 'Categories',
+      ch: Container(
+        
+        child: GridView.builder(
+            shrinkWrap: true,
+            itemCount: 9,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                mainAxisExtent: 200),
+            itemBuilder: (context, index) {
+              return Column(children: [
+                //images 
+                Image.asset(categoriesImgList[index],height: 100, width: 200,fit: BoxFit.cover  ,),
+                10.heightBox,
+                categoriesList[index].text.color(darkFontGrey).align(TextAlign.center).make()
+
+                //
+              ],).box.white.rounded.clip(Clip.antiAlias).outerShadowMd.make();
+            }),
+      ),
+      title: 'Categories',
+      top: 110,
     );
   }
 }

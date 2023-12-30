@@ -126,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               .shadowSm
               .make(),
         ],
-      )),
+      )), top: context.screenHeight * 0.07,
     );
   }
 }

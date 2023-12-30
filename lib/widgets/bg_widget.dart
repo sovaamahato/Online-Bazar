@@ -6,9 +6,10 @@ import '../consts/consts.dart';
 
 class bgWiddget extends StatelessWidget {
   //const bgWiddget({super.key});
+  double top;
   String? title;
   final ch ;
-  bgWiddget({super.key, required this.title,required this.ch});
+  bgWiddget({super.key, required this.title,required this.ch,required this.top});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class bgWiddget extends StatelessWidget {
             ),
       
              Positioned(
-              top: context.screenHeight * 0.07,
+              top: top,
               left: context.screenWidth * 0.02,
               right: context.screenWidth * 0.02,
               child: SingleChildScrollView(

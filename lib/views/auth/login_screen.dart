@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
               .shadowSm
               .make(),
         ],
-      )), title: '',
+      )), title: '', top: context.screenHeight * 0.07,
     );
   }
 }
