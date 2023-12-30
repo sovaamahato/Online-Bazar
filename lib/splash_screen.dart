@@ -4,7 +4,7 @@ import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/home.dart';
 import 'package:online_bazar/widgets/app_logo_widget.dart';
 
-import 'auth/login_screen.dart';
+import 'views/auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:online_bazar/auth/login_screen.dart';
+import 'package:online_bazar/views/auth/login_screen.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
 import 'package:online_bazar/widgets/bg_widget.dart';
 import 'package:online_bazar/widgets/custom_textfield.dart';
 import 'package:online_bazar/widgets/my_button.dart';
 
-import '../widgets/app_logo_widget.dart';
+import '../../widgets/app_logo_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -23,8 +23,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return bgWiddget(Container(
-      child: Center(
+    return bgWiddget(title: "",ch:
+       Center(
           child: Column(
         children: [
           (context.screenHeight * 0.1).heightBox,
@@ -127,6 +127,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               .make(),
         ],
       )),
-    ));
+    );
   }
 }

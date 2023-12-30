@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
-import 'package:online_bazar/home_screen/components/my_featured_box.dart';
+import 'package:online_bazar/views/home_screen/components/my_featured_box.dart';
 import 'package:online_bazar/widgets/home_buttons.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-import 'package:online_bazar/cart_screen/cart_screen.dart';
-import 'package:online_bazar/category_screen/category_screen.dart';
+import 'package:online_bazar/views/cart_screen/cart_screen.dart';
+import 'package:online_bazar/views/category_screen/category_screen.dart';
 import 'package:online_bazar/controllers/home_controllers.dart';
-import 'package:online_bazar/home_screen/home_screen.dart';
-import 'package:online_bazar/profile_screen/profile.screen.dart';
+import 'package:online_bazar/views/home_screen/home_screen.dart';
+import 'package:online_bazar/views/profile_screen/profile.screen.dart';
 import 'consts/consts.dart';
 
 class Home extends StatelessWidget {
@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
           label: "Profile"),
     ];
     return Scaffold(
-      appBar: AppBar(title: Text(appname)),
+      
       body: Obx(()=> Expanded(
           child: navBody.elementAt(controller.currentNavIndex.value),
         ),
