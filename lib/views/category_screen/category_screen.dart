@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
+import 'package:online_bazar/views/category_screen/categories_details.dart';
 
 import 'package:online_bazar/widgets/bg_widget.dart';
 
@@ -28,7 +30,9 @@ class CategoryScreen extends StatelessWidget {
                 categoriesList[index].text.color(darkFontGrey).align(TextAlign.center).make()
 
                 //
-              ],).box.white.rounded.clip(Clip.antiAlias).outerShadowMd.make();
+              ],).box.white.rounded.clip(Clip.antiAlias).outerShadowMd.make().onTap(() {
+                Get.to(()=>CategoriesDetails(title: categoriesList[index]));
+              });
             }),
       ),
       title: 'Categories',

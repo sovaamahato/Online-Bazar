@@ -230,46 +230,48 @@ class HomeScreen extends StatelessWidget {
                   //product list section------------------------
                   20.heightBox,
                   GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 6,
-                      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,crossAxisSpacing: 8,mainAxisSpacing: 8,mainAxisExtent: 300),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 6,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                              mainAxisExtent: 300),
                       itemBuilder: (context, index) {
                         return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        //img
-                                        Image.asset(
-                                          imgP3,
-                                          width: 200,
-                                          height: 200,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        const Spacer(),
-                                        //desciption,
-                                        "Description"
-                                            .text
-                                            .fontFamily(semibold)
-                                            .color(darkFontGrey)
-                                            .make(),
-                                        //price
-                                        "price"
-                                            .text
-                                            .color(redColor)
-                                            .size(16)
-                                            .fontFamily(bold)
-                                            .make(),
-                                      ],
-                                    )
-                                        .box
-                                        .white
-                                        .roundedSM
-                                        .padding(EdgeInsets.all(10))
-                                        .margin(const EdgeInsets.symmetric(
-                                            horizontal: 12))
-                                        .make();
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //img
+                            Image.asset(
+                              imgP3,
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.cover,
+                            ),
+                            const Spacer(),
+                            //desciption,
+                            "Description"
+                                .text
+                                .fontFamily(semibold)
+                                .color(darkFontGrey)
+                                .make(),
+                            //price
+                            "price"
+                                .text
+                                .color(redColor)
+                                .size(16)
+                                .fontFamily(bold)
+                                .make(),
+                          ],
+                        )
+                            .box
+                            .white
+                            .roundedSM
+                            .padding(EdgeInsets.all(10))
+                            .margin(const EdgeInsets.symmetric(horizontal: 12))
+                            .make();
                       })
                 ],
               ),
