@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
+import 'package:online_bazar/views/category_screen/item_details.dart';
 import 'package:online_bazar/widgets/bg_widget.dart';
 
 class CategoriesDetails extends StatelessWidget {
@@ -83,7 +85,9 @@ class CategoriesDetails extends StatelessWidget {
                             .outerShadowSm
                             .padding(EdgeInsets.all(10))
                             .margin(const EdgeInsets.symmetric(horizontal: 12))
-                            .make();;
+                            .make().onTap(() {
+                                  Get.to(()=> ItemDetails(title: "Dummy tem"));
+                                });
                     }),
               ),
             )

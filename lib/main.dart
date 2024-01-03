@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/views/auth/login_screen.dart';
 import 'package:online_bazar/views/home_screen/home_screen.dart';
 import 'package:online_bazar/splash_screen.dart';
@@ -17,6 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: Colors.transparent,
+      appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(
+          color: darkFontGrey
+        )
+      )),
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),);
   }

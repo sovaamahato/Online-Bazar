@@ -13,3 +13,4 @@ const featuredTitle2=["Boys Glasses","Mobile Phones ","T-SHirts"];
 //categories screen ma chaine
 const categoriesList=["Women Dresss", "Men Clothing Fashion", "Computer Accessories", "Automobiles", "Kid Toys", "Sports", "Jwellery", "Cellphones", "Furniture"];
 const categoriesImgList=[imgFc1,imgFc2,imgFc3,imgFc4, imgFc5,imgFc5, imgFc6, imgFc7, imgFc8, imgFc9];
+const itemButtomDetails=["video","Reviews", "Privacy Policy", "return Policy ", "Support Policy"];
