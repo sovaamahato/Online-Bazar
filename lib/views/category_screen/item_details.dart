@@ -16,11 +16,11 @@ class ItemDetails extends StatelessWidget {
       appBar: AppBar(title: title!.text.make(), actions: [
         IconButton(
           onPressed: () {},
-          icon: Icon(Icons.share),
+          icon:const  Icon(Icons.share),
         ),
         IconButton(
           onPressed: () {},
-          icon: Icon(Icons.favorite_outline),
+          icon: const Icon(Icons.favorite_outline),
         )
       ]),
       body: Column(
@@ -92,7 +92,7 @@ class ItemDetails extends StatelessWidget {
                           ],
                         ),
                       ),
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundColor: whiteColor,
                         child: Icon(
                           Icons.message_rounded,
