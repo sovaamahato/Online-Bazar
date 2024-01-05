@@ -1,14 +1,15 @@
 import "package:flutter/material.dart";
 import 'package:online_bazar/consts/consts.dart';
 
-Widget CustomTextField({String? title, String? hint, controller}) {
+Widget CustomTextField({String? title, String? hint, controller, obScure}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       title!.text.fontFamily(semibold).color(redColor).size(16).make(),
       5.heightBox,
       TextFormField(
-        //controller: controller,
+        obscureText: obScure,
+        controller: controller,
         decoration: InputDecoration(
             hintText: hint,
             hintStyle:

@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return bgWiddget(
       //title: "login screen",
-        ch:  Center(
+      ch: Center(
           child: Column(
         children: [
           (context.screenHeight * 0.1).heightBox,
@@ -38,8 +38,12 @@ class LoginScreen extends StatelessWidget {
           //login wala container here---------------
           Column(
             children: [
-              CustomTextField(title: "Email", hint: "mahatosova618@gmail.com"),
-              CustomTextField(title: "Password", hint: "**********"),
+              CustomTextField(
+                  title: "Email",
+                  obScure: false,
+                  hint: "mahatosova618@gmail.com"),
+              CustomTextField(
+                  title: "Password", obScure: true, hint: "**********"),
               Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -88,7 +92,9 @@ class LoginScreen extends StatelessWidget {
               .shadowSm
               .make(),
         ],
-      )), title: '', top: context.screenHeight * 0.07,
+      )),
+      title: '',
+      top: context.screenHeight * 0.07,
     );
   }
 }

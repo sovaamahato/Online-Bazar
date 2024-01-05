@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:online_bazar/controllers/auth_controllers.dart';
+import 'package:online_bazar/home.dart';
 import 'package:online_bazar/views/auth/login_screen.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
@@ -8,6 +10,7 @@ import 'package:online_bazar/widgets/bg_widget.dart';
 import 'package:online_bazar/widgets/custom_textfield.dart';
 import 'package:online_bazar/widgets/my_button.dart';
 
+import '../../consts/firebase_consts.dart';
 import '../../widgets/app_logo_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,14 +20,21 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   //const SignUpScreen({super.key});
-  TextEditingController emailController = TextEditingController();
 
-  bool? isChecked=false;
+  bool? isChecked = false;
+  var controller = Get.put(AuthController());
+
+  //text controllers
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var passwordRetypeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return bgWiddget(title: "",ch:
-       Center(
+    return bgWiddget(
+      title: "",
+      ch: Center(
           child: Column(
         children: [
           (context.screenHeight * 0.1).heightBox,
@@ -43,13 +53,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
           //login wala container here---------------
           Column(
             children: [
-              CustomTextField(title: "Username", hint: "Sovaa Kushwaha"),
-              CustomTextField(title: "Email", hint: "mahatosova618@gmail.com"),
-              CustomTextField(title: "Password", hint: "**********"),
-              CustomTextField(title: "Confirm Password", hint: "*********"),
+              CustomTextField(
+                  title: "Username",
+                  hint: "Sovaa Kushwaha",
+                  controller: nameController,
+                  obScure: false),
+              CustomTextField(
+                  title: "Email",
+                  hint: "mahatosova618@gmail.com",
+                  controller: emailController,
+                  obScure: false),
+              CustomTextField(
+                  title: "Password",
+                  hint: "**********",
+                  controller: passwordController,
+                  obScure: true),
+              CustomTextField(
+                  title: "Confirm Password",
+                  hint: "*********",
+                  controller: passwordRetypeController,
+                  obScure: true),
 
-             
-             //terms and conditions check box
+              //terms and conditions check box
               8.heightBox,
               Row(
                 children: [
@@ -58,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       value: isChecked,
                       onChanged: (newvalue) {
                         setState(() {
-                          isChecked=newvalue;
+                          isChecked = newvalue;
                         });
                       }),
                   10.widthBox,
@@ -98,23 +123,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
               //--------sign up button
-               10.heightBox,
-              MyButton("Sign Up",isChecked==true? redColor:lightGolden, isChecked==true?whiteColor:redColor, () {})
-                  .box
-                  .width(context.screenWidth - 50)
-                  .make(),
-10.heightBox,
-                  Row(
-                    children: [
-                      "alraedy have an account?".text.color(fontGrey).make(),
-                      5.widthBox,
+              10.heightBox,
+              MyButton(
+                "Sign Up",
+                isChecked == true ? redColor : lightGolden,
+                isChecked == true ? whiteColor : redColor,
+                () async {
+                  if (isChecked != false) {
+                    try {
+                      await controller
+                          .signupMethod(emailController.text,
+                              passwordController.text, context)
+                          .then((value) {
+                        return controller.storeUserData(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          name: nameController.text,
+                        );
+                      }).then((value) {
+                        VxToast.show(context, msg: "logged in successfilly");
+                        Get.offAll(() => const Home());
+                      });
+                    } catch (e) {
+                      auth.signOut();
+                      VxToast.show(context, msg: e.toString());
+                    }
+                  }
+                },
+              ).box.width(context.screenWidth - 50).make(),
+              10.heightBox,
+              Row(
+                children: [
+                  "alraedy have an account?".text.color(fontGrey).make(),
+                  5.widthBox,
 
-                      //this login button is wraped with gesturedector of velocity x (you only need to write .onTap ())
-                      "Login".text.color(redColor).fontFamily(bold).make().onTap(() {
-                        Get.back();
-                      }),
-                    ],
-                  ),
+                  //this login button is wraped with gesturedector of velocity x (you only need to write .onTap ())
+                  "Login"
+                      .text
+                      .color(redColor)
+                      .fontFamily(bold)
+                      .make()
+                      .onTap(() {
+                    Get.back();
+                  }),
+                ],
+              ),
               5.heightBox,
             ],
           )
@@ -126,7 +179,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               .shadowSm
               .make(),
         ],
-      )), top: context.screenHeight * 0.07,
+      )),
+      top: context.screenHeight * 0.07,
     );
   }
 }
