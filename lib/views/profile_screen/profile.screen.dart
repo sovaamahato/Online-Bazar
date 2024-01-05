@@ -72,6 +72,7 @@ class ProfileScreen extends StatelessWidget {
               detailsCard(context.screenWidth / 3.5, "00", "in Your card"),
               detailsCard(context.screenWidth / 3.5, "12", "in Your wishlist"),
               detailsCard(context.screenWidth / 3.5, "00", "you've ordered"),
+              
             ]),
             20.heightBox,
             //big white box

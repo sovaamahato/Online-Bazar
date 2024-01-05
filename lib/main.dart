@@ -1,16 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/views/auth/login_screen.dart';
-import 'package:online_bazar/views/home_screen/home_screen.dart';
-import 'package:online_bazar/splash_screen.dart';
+//import 'package:online_bazar/views/home_screen/home_screen.dart';
+//import 'package:online_bazar/splash_screen.dart';
 
-import 'home.dart';
+//import 'home.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyDhv5E9Go1ZlCiRziPfb73wWUnsScKjTZI",
+      appId: "1:114827691684:android:4f85ecb5a5e2ae39878831",
+      messagingSenderId: "114827691684",
+      projectId: "online-bazar-b5ca8",
+    ),
+  );
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,13 +27,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: Colors.transparent,
-      appBarTheme: const AppBarTheme(
-        iconTheme: IconThemeData(
-          color: darkFontGrey
-        )
-      )),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Colors.transparent,
+          appBarTheme:
+              const AppBarTheme(iconTheme: IconThemeData(color: darkFontGrey))),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),);
+      home: LoginScreen(),
+    );
   }
 }
