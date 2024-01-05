@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
-import 'package:online_bazar/views/auth/login_screen.dart';
+import 'package:online_bazar/splash_screen.dart';
 //import 'package:online_bazar/views/home_screen/home_screen.dart';
 //import 'package:online_bazar/splash_screen.dart';
 
@@ -19,6 +19,7 @@ Future<void> main() async {
       projectId: "online-bazar-b5ca8",
     ),
   );
+
   // Configure Firebase App Check
   //await FirebaseAppCheck.instance.activate();
   runApp(const MyApp());
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           appBarTheme:
               const AppBarTheme(iconTheme: IconThemeData(color: darkFontGrey))),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

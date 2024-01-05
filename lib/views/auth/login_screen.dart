@@ -37,75 +37,85 @@ class LoginScreen extends StatelessWidget {
           18.heightBox,
 
           //login wala container here---------------
-          Column(
-            children: [
-              CustomTextField(
-                  title: "Email",
-                  obScure: false,
-                  hint: "mahatosova618@gmail.com",
-                  controller: controller.emailController),
-              CustomTextField(
-                  title: "Password",
-                  obScure: true,
-                  hint: "**********",
-                  controller: controller.passwordController),
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                      onPressed: () {}, child: "Forget Password".text.make())),
-              5.heightBox,
+          Obx(
+            () => Column(
+              children: [
+                CustomTextField(
+                    title: "Email",
+                    obScure: false,
+                    hint: "mahatosova618@gmail.com",
+                    controller: controller.emailController),
+                CustomTextField(
+                    title: "Password",
+                    obScure: true,
+                    hint: "**********",
+                    controller: controller.passwordController),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                        onPressed: () {},
+                        child: "Forget Password".text.make())),
+                5.heightBox,
 
-              //login button------------------
-              MyButton("Login", redColor, whiteColor, () async {
-                try {
-                  await controller.loginMethod(context).then((value) {
-                    if (value != null) {
-                      VxToast.show(context, msg: "Logged in successfully");
-                      Get.offAll(() => const Home());
-                    }
-                  });
-                } catch (error) {
-                  // Handle other errors if needed
-                  print("Error during login: $error");
-                }
-              }).box.width(context.screenWidth - 50).make(),
-              8.heightBox,
-              //text  don not have account -------------------------
-              "or Create new account".text.color(fontGrey).make(),
-              5.heightBox,
-              //signup button ----------------------
-              MyButton("Sign Up", lightGolden, redColor, () {
-                Get.to(() => SignUpScreen());
-              }).box.width(context.screenWidth - 50).make(),
-              10.heightBox,
+                //login button------------------
+                controller.isLoading.value
+                    ? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(redColor))
+                    : MyButton("Login", redColor, whiteColor, () async {
+                        try {
+                          controller.isLoading(true);
+                          await controller.loginMethod(context).then((value) {
+                            if (value != null) {
+                              VxToast.show(context,
+                                  msg: "Logged in successfully");
+                              Get.offAll(() => const Home());
+                            } else {
+                              controller.isLoading(false);
+                            }
+                          });
+                        } catch (error) {
+                          // Handle other errors if needed
+                          print("Error during login: $error");
+                        }
+                      }).box.width(context.screenWidth - 50).make(),
+                8.heightBox,
+                //text  don not have account -------------------------
+                "or Create new account".text.color(fontGrey).make(),
+                5.heightBox,
+                //signup button ----------------------
+                MyButton("Sign Up", lightGolden, redColor, () {
+                  Get.to(() => SignUpScreen());
+                }).box.width(context.screenWidth - 50).make(),
+                10.heightBox,
 
-              //google and other ways to login------------------------
-              "Login With".text.color(fontGrey).make(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                    3,
-                    (index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            radius: 25,
-                            backgroundColor: lightGrey,
-                            child: Image.asset(
-                              SocialIconList[index],
-                              width: 35,
+                //google and other ways to login------------------------
+                "Login With".text.color(fontGrey).make(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                      3,
+                      (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircleAvatar(
+                              radius: 25,
+                              backgroundColor: lightGrey,
+                              child: Image.asset(
+                                SocialIconList[index],
+                                width: 35,
+                              ),
                             ),
-                          ),
-                        )),
-              )
-            ],
-          )
-              .box
-              .white
-              .rounded
-              .padding(EdgeInsets.all(16))
-              .width(context.screenWidth - 70)
-              .shadowSm
-              .make(),
+                          )),
+                )
+              ],
+            )
+                .box
+                .white
+                .rounded
+                .padding(EdgeInsets.all(16))
+                .width(context.screenWidth - 70)
+                .shadowSm
+                .make(),
+          ),
         ],
       )),
       title: '',

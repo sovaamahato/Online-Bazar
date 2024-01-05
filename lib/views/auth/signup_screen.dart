@@ -50,134 +50,142 @@ class _SignUpScreenState extends State<SignUpScreen> {
           //space
           18.heightBox,
 
-          //login wala container here---------------
-          Column(
-            children: [
-              CustomTextField(
-                  title: "Username",
-                  hint: "Sovaa Kushwaha",
-                  controller: nameController,
-                  obScure: false),
-              CustomTextField(
-                  title: "Email",
-                  hint: "mahatosova618@gmail.com",
-                  controller: emailController,
-                  obScure: false),
-              CustomTextField(
-                  title: "Password",
-                  hint: "**********",
-                  controller: passwordController,
-                  obScure: true),
-              CustomTextField(
-                  title: "Confirm Password",
-                  hint: "*********",
-                  controller: passwordRetypeController,
-                  obScure: true),
+          //signup wala container here---------------
+          Obx(
+            () => Column(
+              children: [
+                CustomTextField(
+                    title: "Username",
+                    hint: "Sovaa Kushwaha",
+                    controller: nameController,
+                    obScure: false),
+                CustomTextField(
+                    title: "Email",
+                    hint: "mahatosova618@gmail.com",
+                    controller: emailController,
+                    obScure: false),
+                CustomTextField(
+                    title: "Password",
+                    hint: "**********",
+                    controller: passwordController,
+                    obScure: true),
+                CustomTextField(
+                    title: "Confirm Password",
+                    hint: "*********",
+                    controller: passwordRetypeController,
+                    obScure: true),
 
-              //terms and conditions check box
-              8.heightBox,
-              Row(
-                children: [
-                  Checkbox(
-                      checkColor: redColor,
-                      value: isChecked,
-                      onChanged: (newvalue) {
-                        setState(() {
-                          isChecked = newvalue;
-                        });
-                      }),
-                  10.widthBox,
-                  Expanded(
-                    child: RichText(
-                        text: const TextSpan(children: [
-                      TextSpan(
-                        text: "I agree to the ",
-                        style: TextStyle(
-                          color: fontGrey,
-                          fontFamily: bold,
+                //terms and conditions check box
+                8.heightBox,
+                Row(
+                  children: [
+                    Checkbox(
+                        checkColor: redColor,
+                        value: isChecked,
+                        onChanged: (newvalue) {
+                          setState(() {
+                            isChecked = newvalue;
+                          });
+                        }),
+                    10.widthBox,
+                    Expanded(
+                      child: RichText(
+                          text: const TextSpan(children: [
+                        TextSpan(
+                          text: "I agree to the ",
+                          style: TextStyle(
+                            color: fontGrey,
+                            fontFamily: bold,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "terms & Conditions ",
-                        style: TextStyle(
-                          color: redColor,
-                          fontFamily: bold,
+                        TextSpan(
+                          text: "terms & Conditions ",
+                          style: TextStyle(
+                            color: redColor,
+                            fontFamily: bold,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: " &",
-                        style: TextStyle(
-                          color: fontGrey,
-                          fontFamily: bold,
+                        TextSpan(
+                          text: " &",
+                          style: TextStyle(
+                            color: fontGrey,
+                            fontFamily: bold,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: "Privacy Policy",
-                        style: TextStyle(
-                          color: redColor,
-                          fontFamily: bold,
+                        TextSpan(
+                          text: "Privacy Policy",
+                          style: TextStyle(
+                            color: redColor,
+                            fontFamily: bold,
+                          ),
                         ),
-                      ),
-                    ])),
-                  ),
-                ],
-              ),
-              //--------sign up button
-              10.heightBox,
-              MyButton(
-                "Sign Up",
-                isChecked == true ? redColor : lightGolden,
-                isChecked == true ? whiteColor : redColor,
-                () async {
-                  if (isChecked != false) {
-                    try {
-                      await controller
-                          .signupMethod(emailController.text,
-                              passwordController.text, context)
-                          .then((value) {
-                        return controller.storeUserData(
-                          email: emailController.text,
-                          password: passwordController.text,
-                          name: nameController.text,
-                        );
-                      }).then((value) {
-                        VxToast.show(context, msg: "logged in successfilly");
-                        Get.offAll(() => const Home());
-                      });
-                    } catch (e) {
-                      auth.signOut();
-                      VxToast.show(context, msg: e.toString());
-                    }
-                  }
-                },
-              ).box.width(context.screenWidth - 50).make(),
-              10.heightBox,
-              Row(
-                children: [
-                  "alraedy have an account?".text.color(fontGrey).make(),
-                  5.widthBox,
+                      ])),
+                    ),
+                  ],
+                ),
+                //--------sign up button
+                10.heightBox,
+                controller.isLoading.value
+                    ? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(redColor))
+                    : MyButton(
+                        "Sign Up",
+                        isChecked == true ? redColor : lightGolden,
+                        isChecked == true ? whiteColor : redColor,
+                        () async {
+                          if (isChecked != false) {
+                            controller.isLoading(true);
+                            try {
+                              await controller
+                                  .signupMethod(emailController.text,
+                                      passwordController.text, context)
+                                  .then((value) {
+                                return controller.storeUserData(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  name: nameController.text,
+                                );
+                              }).then((value) {
+                                VxToast.show(context,
+                                    msg: "logged in successfilly");
+                                Get.offAll(() => const Home());
+                              });
+                            } catch (e) {
+                              auth.signOut();
+                              VxToast.show(context, msg: e.toString());
+                              controller.isLoading(false);
+                            }
+                          }
+                        },
+                      ).box.width(context.screenWidth - 50).make(),
+                10.heightBox,
+                Row(
+                  children: [
+                    "alraedy have an account?".text.color(fontGrey).make(),
+                    5.widthBox,
 
-                  //this login button is wraped with gesturedector of velocity x (you only need to write .onTap ())
-                  "Login"
-                      .text
-                      .color(redColor)
-                      .fontFamily(bold)
-                      .make()
-                      .onTap(() {
-                    Get.back();
-                  }),
-                ],
-              ),
-              5.heightBox,
-            ],
-          )
-              .box
-              .white
-              .rounded
-              .padding(EdgeInsets.all(16))
-              .width(context.screenWidth - 70)
-              .shadowSm
-              .make(),
+                    //this login button is wraped with gesturedector of velocity x (you only need to write .onTap ())
+                    "Login"
+                        .text
+                        .color(redColor)
+                        .fontFamily(bold)
+                        .make()
+                        .onTap(() {
+                      Get.back();
+                    }),
+                  ],
+                ),
+                5.heightBox,
+              ],
+            )
+                .box
+                .white
+                .rounded
+                .padding(EdgeInsets.all(16))
+                .width(context.screenWidth - 70)
+                .shadowSm
+                .make(),
+          ),
         ],
       )),
       top: context.screenHeight * 0.07,
