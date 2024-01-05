@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:online_bazar/controllers/auth_controllers.dart';
 
 import 'package:online_bazar/views/auth/signup_screen.dart';
 import 'package:online_bazar/consts/consts.dart';
@@ -13,10 +14,10 @@ import '../../widgets/app_logo_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   //const LoginScreen({super.key});
-  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
     return bgWiddget(
       //title: "login screen",
       ch: Center(
@@ -41,9 +42,13 @@ class LoginScreen extends StatelessWidget {
               CustomTextField(
                   title: "Email",
                   obScure: false,
-                  hint: "mahatosova618@gmail.com"),
+                  hint: "mahatosova618@gmail.com",
+                  controller: controller.emailController),
               CustomTextField(
-                  title: "Password", obScure: true, hint: "**********"),
+                  title: "Password",
+                  obScure: true,
+                  hint: "**********",
+                  controller: controller.passwordController),
               Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -51,8 +56,18 @@ class LoginScreen extends StatelessWidget {
               5.heightBox,
 
               //login button------------------
-              MyButton("Login", redColor, whiteColor, () {
-                Get.to(() => Home());
+              MyButton("Login", redColor, whiteColor, () async {
+                try {
+                  await controller.loginMethod(context).then((value) {
+                    if (value != null) {
+                      VxToast.show(context, msg: "Logged in successfully");
+                      Get.offAll(() => const Home());
+                    }
+                  });
+                } catch (error) {
+                  // Handle other errors if needed
+                  print("Error during login: $error");
+                }
               }).box.width(context.screenWidth - 50).make(),
               8.heightBox,
               //text  don not have account -------------------------
