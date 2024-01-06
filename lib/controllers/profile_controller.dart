@@ -14,7 +14,9 @@ class ProfileController extends GetxController {
   var profileImgPath = ''.obs;
   //textfield
   var nameController = TextEditingController();
-  var passController = TextEditingController();
+  var oldpassController = TextEditingController();
+  var newpassController = TextEditingController();
+
   var profileimageLink = '';
   var isloading = false.obs;
 
