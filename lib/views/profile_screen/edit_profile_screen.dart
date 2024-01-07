@@ -75,15 +75,19 @@ class EditProfileScreen extends StatelessWidget {
                         controller.isloading(true);
 
                         //if new image is not selected for changing
-                        if (controller.profileImgPath.value.isNotEmpty) {
-                          await controller.uploadProfileImage();
-                        } else {
-                          controller.profileimageLink = data['imageurl'];
-                        }
+                        // if (controller.profileImgPath.value.isNotEmpty) {
+                        //   await controller.uploadProfileImage();
+                        // } else {
+                        //   controller.profileimageLink = data['imageurl'];
+                        // }
 
                         //if old password matches database
                         if (data['password'] ==
                             controller.oldpassController.text) {
+                          await controller.changeAuthPassword(
+                              email: data['email'],
+                              password: controller.oldpassController.text,
+                              newPassword: controller.newpassController.text);
                           await controller.updateProfile(
                               controller.nameController.text,
                               controller.newpassController.text,
