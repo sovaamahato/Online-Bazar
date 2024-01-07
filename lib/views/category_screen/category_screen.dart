@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
+import 'package:online_bazar/controllers/product_controllers.dart';
 import 'package:online_bazar/views/category_screen/categories_details.dart';
 
 import 'package:online_bazar/widgets/bg_widget.dart';
@@ -11,27 +12,46 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
     return bgWiddget(
       ch: Container(
-        
         child: GridView.builder(
             shrinkWrap: true,
             itemCount: 9,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
                 mainAxisExtent: 200),
             itemBuilder: (context, index) {
-              return Column(children: [
-                //images 
-                Image.asset(categoriesImgList[index],height: 100, width: 200,fit: BoxFit.cover  ,),
-                10.heightBox,
-                categoriesList[index].text.color(darkFontGrey).align(TextAlign.center).make()
+              return Column(
+                children: [
+                  //images
+                  Image.asset(
+                    categoriesImgList[index],
+                    height: 100,
+                    width: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  10.heightBox,
+                  categoriesList[index]
+                      .text
+                      .color(darkFontGrey)
+                      .align(TextAlign.center)
+                      .make()
 
-                //
-              ],).box.white.rounded.clip(Clip.antiAlias).outerShadowMd.make().onTap(() {
-                Get.to(()=>CategoriesDetails(title: categoriesList[index]));
+                  //
+                ],
+              )
+                  .box
+                  .white
+                  .rounded
+                  .clip(Clip.antiAlias)
+                  .outerShadowMd
+                  .make()
+                  .onTap(() {
+                controller.getSubCategories((categoriesList[index]));
+                Get.to(() => CategoriesDetails(title: categoriesList[index]));
               });
             }),
       ),
