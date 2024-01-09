@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
+import 'package:online_bazar/consts/firebase_consts.dart';
 import 'package:online_bazar/controllers/chat_controller.dart';
 import 'package:online_bazar/services/firestore_services.dart';
 import 'package:online_bazar/views/chat_screen/components/chat_bubble.dart';
@@ -16,7 +17,11 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-          title: "Title".text.fontFamily(semibold).color(redColor).make()),
+          title: "${controller.friendName}"
+              .text
+              .fontFamily(semibold)
+              .color(redColor)
+              .make()),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -37,10 +42,19 @@ class ChatScreen extends StatelessWidget {
                             child: "Send a message".text.make(),
                           );
                         } else {
-                          return ListView(children: [
-                            //chat bubble----------------------
-                            senderBubble(),
-                          ]);
+                          return ListView(
+                            children:
+                                //chat bubble----------------------
+                                snapshot.data!.docs
+                                    .mapIndexed((currentValue, index) {
+                              var data = snapshot.data!.docs[index];
+                              return Align(
+                                  alignment: data['uid'] == currentUser!.uid
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: senderBubble(data));
+                            }).toList(),
+                          );
                         }
                       },
                     )),

@@ -36,7 +36,7 @@ class FirestoreServices {
         .collection(chatsCollection)
         .doc(docId)
         .collection(messagesCollection)
-        .orderBy('created_on', descending: true)
+        .orderBy('created_on', descending: false)
         .snapshots();
   }
 }
