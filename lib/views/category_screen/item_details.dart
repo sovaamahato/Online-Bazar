@@ -4,6 +4,7 @@ import 'package:online_bazar/consts/colors.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
 import 'package:online_bazar/controllers/product_controllers.dart';
+import 'package:online_bazar/views/chat_screen/chat_screen.dart';
 import 'package:online_bazar/widgets/my_button.dart';
 
 class ItemDetails extends StatelessWidget {
@@ -119,7 +120,9 @@ class ItemDetails extends StatelessWidget {
                             Icons.message_rounded,
                             color: darkFontGrey,
                           ),
-                        ),
+                        ).onTap(() {
+                          Get.to(() => ChatScreen());
+                        }),
                       ],
                     )
                         .box
