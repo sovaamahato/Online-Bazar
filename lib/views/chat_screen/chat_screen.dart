@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
+import 'package:online_bazar/controllers/chat_controller.dart';
+import 'package:online_bazar/services/firestore_services.dart';
 import 'package:online_bazar/views/chat_screen/components/chat_bubble.dart';
+import 'package:online_bazar/widgets/loading_indicator.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ChatsController());
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -15,20 +21,37 @@ class ChatScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Expanded(
-                child: Container(
-              child: ListView(children: [
-                //chat bubble----------------------
-                senderBubble(),
-              ]),
-              color: Colors.teal,
-            )),
+            Obx(
+              () => controller.isLoading.value
+                  ? Center(child: loadingIndicator())
+                  : Expanded(
+                      child: StreamBuilder(
+                      stream: FirestoreServices.getChatmessages(
+                          controller.chatDocId.toString()),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: loadingIndicator());
+                        } else if (snapshot.data!.docs.isEmpty) {
+                          return Center(
+                            child: "Send a message".text.make(),
+                          );
+                        } else {
+                          return ListView(children: [
+                            //chat bubble----------------------
+                            senderBubble(),
+                          ]);
+                        }
+                      },
+                    )),
+            ),
             10.heightBox,
             //textfield to type message------------------
             Row(
               children: [
                 Expanded(
                     child: TextFormField(
+                  controller: controller.msgController,
                   decoration: const InputDecoration(
                     hintText: "Type a message...",
                     border: OutlineInputBorder(
@@ -43,7 +66,12 @@ class ChatScreen extends StatelessWidget {
                     ),
                   ),
                 )),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+                IconButton(
+                    onPressed: () {
+                      controller.sendMsg(controller.msgController.text);
+                      controller.msgController.clear();
+                    },
+                    icon: const Icon(Icons.send))
               ],
             )
                 .box

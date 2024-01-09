@@ -121,7 +121,10 @@ class ItemDetails extends StatelessWidget {
                             color: darkFontGrey,
                           ),
                         ).onTap(() {
-                          Get.to(() => ChatScreen());
+                          Get.to(
+                            () => ChatScreen(),
+                            arguments: [data['p_seller'], data['vendor_id']],
+                          );
                         }),
                       ],
                     )
