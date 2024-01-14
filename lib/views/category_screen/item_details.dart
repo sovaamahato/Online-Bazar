@@ -36,9 +36,22 @@ class ItemDetails extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(Icons.share),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite_outline),
+              Obx(
+                () => IconButton(
+                  onPressed: () {
+                    if (controller.isFav.value) {
+                      controller.removeFromWishlist(data.id, context);
+                      //controller.isFav(false);
+                    } else {
+                      controller.addToWishlist(data.id, context);
+                      // controller.isFav(true);
+                    }
+                  },
+                  icon: Icon(
+                    Icons.favorite_rounded,
+                    color: controller.isFav.value ? Colors.red : darkFontGrey,
+                  ),
+                ),
               )
             ]),
         body: Column(

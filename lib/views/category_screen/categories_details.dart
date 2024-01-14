@@ -117,6 +117,7 @@ class CategoriesDetails extends StatelessWidget {
                                     const EdgeInsets.symmetric(horizontal: 12))
                                 .make()
                                 .onTap(() {
+                              controller.checkIfFav(data[index]);
                               Get.to(
                                 () => ItemDetails(
                                   title: "${data[index]['p_name']}",

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
@@ -9,6 +10,8 @@ class ProductController extends GetxController {
   var colorIndex = 0.obs;
   var totalPrice = 0.obs;
   var subcat = [];
+
+  var isFav = false.obs;
   getSubCategories(title) async {
     subcat.clear();
     var data = await rootBundle.loadString("lib/services/category_model.json");
@@ -55,9 +58,35 @@ class ProductController extends GetxController {
     });
   }
 
+//reset value like total proce selected item number in item details screen
   resetValues() {
     totalPrice.value = 0;
     quantity.value = 0;
     colorIndex.value = 0;
+  }
+
+  addToWishlist(docId, context) async {
+    await firestore.collection(productsCollection).doc(docId).set({
+      'p_wishlist': FieldValue.arrayUnion([currentUser!.uid])
+    }, SetOptions(merge: true));
+    isFav(true);
+    VxToast.show(context, msg: "added to wishlist");
+  }
+
+  removeFromWishlist(docId, context) async {
+    await firestore.collection(productsCollection).doc(docId).set({
+      'p_wishlist': FieldValue.arrayRemove([currentUser!.uid])
+    }, SetOptions(merge: true));
+
+    isFav(false);
+    VxToast.show(context, msg: "Removed from wishlist");
+  }
+
+  checkIfFav(data) async {
+    if (data['p_wishlist'].contains(currentUser!.uid)) {
+      isFav(true);
+    } else {
+      isFav(true);
+    }
   }
 }
