@@ -5,6 +5,7 @@ import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/firebase_consts.dart';
 import 'package:online_bazar/controllers/cart_controller.dart';
 import 'package:online_bazar/services/firestore_services.dart';
+import 'package:online_bazar/views/cart_screen/shipping_screen.dart';
 import 'package:online_bazar/widgets/loading_indicator.dart';
 import 'package:online_bazar/widgets/my_button.dart';
 
@@ -95,7 +96,9 @@ class CartScreen extends StatelessWidget {
                     SizedBox(
                       width: context.screenWidth - 10,
                       child: MyButton(
-                          "Proceed to shipping", redColor, whiteColor, () {}),
+                          "Proceed to shipping", redColor, whiteColor, () {
+                        Get.to(() => ShippingDetails());
+                      }),
                     )
                   ],
                 ),

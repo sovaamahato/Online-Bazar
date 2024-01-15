@@ -45,3 +45,10 @@ const itemButtomDetails = [
 //profile page
 const profileButtonsList = ["orders", "wish List", "Messages"];
 const profileButtonIcon = [icOrder, icOrder, icMessages];
+
+const paymentMethodsImg = [imgCod, imgPaypal, imgStripe];
+const paymentMethods = [
+  "Cash on Delivery",
+  "paypal",
+  "Stripe",
+];
