@@ -15,7 +15,11 @@ class PaymentMethods extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: 60,
-        child: MyButton("Place Order", redColor, whiteColor, () {}),
+        child: MyButton("Place Order", redColor, whiteColor, () {
+          controller.placeMyOrder(
+              orderPaymentMethod: paymentMethods[controller.paymentIndex.value],
+              totalAmount: controller.totalP.value);
+        }),
       ),
       appBar: AppBar(
         backgroundColor: whiteColor,
