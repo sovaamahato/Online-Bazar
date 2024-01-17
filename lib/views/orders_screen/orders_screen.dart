@@ -4,19 +4,18 @@ import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/services/firestore_services.dart';
 import 'package:online_bazar/widgets/loading_indicator.dart';
 
-class MessigingScreen extends StatelessWidget {
-  const MessigingScreen({super.key});
+class OrdersScreen extends StatelessWidget {
+  const OrdersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        title:
-            "MY Messages".text.color(darkFontGrey).fontFamily(semibold).make(),
+        title: "MY Orders".text.color(darkFontGrey).fontFamily(semibold).make(),
       ),
       body: StreamBuilder(
-          stream: FirestoreServices.getAllMessages(),
+          stream: FirestoreServices.getAllOrders(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -24,7 +23,7 @@ class MessigingScreen extends StatelessWidget {
                 child: loadingIndicator(),
               );
             } else if (snapshot.data!.docs.isEmpty) {
-              return "No Messages yet!".text.makeCentered();
+              return "No orders yet!".text.makeCentered();
             } else {
               return Container();
             }

@@ -7,8 +7,11 @@ import 'package:online_bazar/consts/lists.dart';
 import 'package:online_bazar/controllers/auth_controllers.dart';
 import 'package:online_bazar/services/firestore_services.dart';
 import 'package:online_bazar/views/auth/login_screen.dart';
+import 'package:online_bazar/views/chat_screen/messiging_screen.dart';
+import 'package:online_bazar/views/orders_screen/orders_screen.dart';
 import 'package:online_bazar/views/profile_screen/details_card.dart';
 import 'package:online_bazar/views/profile_screen/edit_profile_screen.dart';
+import 'package:online_bazar/views/wishlist_screen/wishlsit_screen.dart';
 
 import 'package:online_bazar/widgets/bg_widget.dart';
 
@@ -127,6 +130,19 @@ class ProfileScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
+                              onTap: () {
+                                switch (index) {
+                                  case 0:
+                                    Get.to(() => OrdersScreen());
+                                    break;
+                                  case 1:
+                                    Get.to(() => WishlistScreen());
+                                    break;
+                                  case 2:
+                                    Get.to(() => MessigingScreen());
+                                    break;
+                                }
+                              },
                               title: profileButtonsList[index].text.make(),
                               leading: Image.asset(
                                 profileButtonIcon[index],
