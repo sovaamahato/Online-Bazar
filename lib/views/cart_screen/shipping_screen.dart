@@ -31,33 +31,35 @@ class ShippingDetails extends StatelessWidget {
           }
         }),
       ),
-      body: Column(children: [
-        CustomTextField(
-            hint: "Address",
-            obScure: false,
-            title: "Address",
-            controller: controller.addressController),
-        CustomTextField(
-            hint: "city",
-            obScure: false,
-            title: "city",
-            controller: controller.cityController),
-        CustomTextField(
-            hint: "State",
-            obScure: false,
-            title: "State",
-            controller: controller.stateController),
-        CustomTextField(
-            hint: "Postal Code",
-            obScure: false,
-            title: "Postal Code",
-            controller: controller.postalcodeController),
-        CustomTextField(
-            hint: "Phone",
-            obScure: false,
-            title: "Phone",
-            controller: controller.phoneController),
-      ]),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          CustomTextField(
+              hint: "Address",
+              obScure: false,
+              title: "Address",
+              controller: controller.addressController),
+          CustomTextField(
+              hint: "city",
+              obScure: false,
+              title: "city",
+              controller: controller.cityController),
+          CustomTextField(
+              hint: "State",
+              obScure: false,
+              title: "State",
+              controller: controller.stateController),
+          CustomTextField(
+              hint: "Postal Code",
+              obScure: false,
+              title: "Postal Code",
+              controller: controller.postalcodeController),
+          CustomTextField(
+              hint: "Phone",
+              obScure: false,
+              title: "Phone",
+              controller: controller.phoneController),
+        ]),
+      ),
     );
   }
 }

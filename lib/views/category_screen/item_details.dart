@@ -284,7 +284,7 @@ class ItemDetails extends StatelessWidget {
                               )),
                     ),
                     20.heightBox,
-                    //product may like section
+                    //product may like section----------------------------
                     "Product you may also like"
                         .text
                         .fontFamily(bold)
@@ -335,21 +335,26 @@ class ItemDetails extends StatelessWidget {
                 ),
               ),
             )),
+            //add to cart button ----------------------------
             SizedBox(
               height: 60,
               width: double.infinity,
               child: MyButton("Add to cart", redColor, whiteColor, () {
-                controller.addToCart(
-                  color: data['p_colors'][controller.colorIndex.value],
-                  context: context,
-                  vendorID: data['vendor_id'],
-                  img: data['p_imgs'][0],
-                  qty: controller.quantity.value,
-                  sellername: data['p_seller'],
-                  title: data['p_name'],
-                  tprice: controller.totalPrice.value,
-                );
-                VxToast.show(context, msg: "Added to cart");
+                if (controller.quantity.value > 0) {
+                  controller.addToCart(
+                    color: data['p_colors'][controller.colorIndex.value],
+                    context: context,
+                    vendorID: data['vendor_id'],
+                    img: data['p_imgs'][0],
+                    qty: controller.quantity.value,
+                    sellername: data['p_seller'],
+                    title: data['p_name'],
+                    tprice: controller.totalPrice.value,
+                  );
+                  VxToast.show(context, msg: "Added to cart");
+                } else {
+                  VxToast.show(context, msg: "Quantity must be greater than 0");
+                }
               }),
             )
           ],
