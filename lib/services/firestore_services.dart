@@ -1,4 +1,5 @@
 import 'package:online_bazar/consts/firebase_consts.dart';
+import 'package:online_bazar/views/wishlist_screen/wishlsit_screen.dart';
 
 class FirestoreServices {
   static getUser(uid) {
@@ -59,5 +60,32 @@ class FirestoreServices {
         .collection(chatsCollection)
         .where('fromId', isEqualTo: currentUser!.uid)
         .snapshots();
+  }
+
+  static getCounts() async {
+    var res = await Future.wait([
+      firestore
+          .collection(cartCollectio)
+          .where('added_by', isEqualTo: currentUser!.uid)
+          .get()
+          .then((value) {
+        return value.docs.length;
+      }),
+      firestore
+          .collection(productsCollection)
+          .where('p_wishlist', arrayContains: currentUser!.uid)
+          .get()
+          .then((value) {
+        return value.docs.length;
+      }),
+      firestore
+          .collection(ordersCollection)
+          .where('order_by', isEqualTo: currentUser!.uid)
+          .get()
+          .then((value) {
+        return value.docs.length;
+      }),
+    ]);
+    return res;
   }
 }

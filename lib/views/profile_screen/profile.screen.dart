@@ -14,6 +14,7 @@ import 'package:online_bazar/views/profile_screen/edit_profile_screen.dart';
 import 'package:online_bazar/views/wishlist_screen/wishlsit_screen.dart';
 
 import 'package:online_bazar/widgets/bg_widget.dart';
+import 'package:online_bazar/widgets/loading_indicator.dart';
 
 import '../../controllers/profile_controller.dart';
 
@@ -23,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProfileController());
+
     return bgWiddget(
         title: "",
         ch: StreamBuilder(
@@ -111,19 +113,31 @@ class ProfileScreen extends StatelessWidget {
                   20.heightBox,
 
                   //3 ota boxes
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        detailsCard(context.screenWidth / 3.5,
-                            data['cart_count'], "in Your cart"),
-                        detailsCard(
-                          context.screenWidth / 3.5,
-                          data['wishlist_count'],
-                          "in Your wishlist",
-                        ),
-                        detailsCard(context.screenWidth / 3.5,
-                            data['order_count'], "you've ordered"),
-                      ]),
+                  FutureBuilder(
+                      future: FirestoreServices.getCounts(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: loadingIndicator(),
+                          );
+                        } else {
+                          var countData = snapshot.data;
+                          return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                detailsCard(context.screenWidth / 3.5,
+                                    countData[0].toString(), "in Your cart"),
+                                detailsCard(
+                                  context.screenWidth / 3.5,
+                                  countData[1].toString(),
+                                  "in Your wishlist",
+                                ),
+                                detailsCard(context.screenWidth / 3.5,
+                                    countData[2].toString(), "you've ordered"),
+                              ]);
+                        }
+                      }),
+
                   20.heightBox,
                   //big white box
                   ListView.separated(
