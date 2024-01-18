@@ -135,14 +135,14 @@ class ItemDetails extends StatelessWidget {
                           ),
                         ).onTap(() {
                           Get.to(
-                            () => ChatScreen(),
+                            () => const ChatScreen(),
                             arguments: [data['p_seller'], data['vendor_id']],
                           );
                         }),
                       ],
                     )
                         .box
-                        .padding(EdgeInsets.symmetric(horizontal: 10))
+                        .padding(const EdgeInsets.symmetric(horizontal: 10))
                         .color(textfieldGrey)
                         .height(60)
                         .make(),
