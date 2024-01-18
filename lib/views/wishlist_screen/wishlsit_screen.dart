@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:online_bazar/consts/consts.dart';
+import 'package:online_bazar/consts/firebase_consts.dart';
 import 'package:online_bazar/services/firestore_services.dart';
 import 'package:online_bazar/widgets/loading_indicator.dart';
 
@@ -26,7 +27,48 @@ class WishlistScreen extends StatelessWidget {
             } else if (snapshot.data!.docs.isEmpty) {
               return "No Wishlist yet!".text.makeCentered();
             } else {
-              return Container();
+              var data = snapshot.data!.docs;
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: Image.network(
+                            "${data[index]['p_imgs'][0]}",
+                            width: 80,
+                            fit: BoxFit.cover,
+                          ),
+                          title: "${data[index]['p_name']}"
+                              .text
+                              .fontFamily(semibold)
+                              .size(16)
+                              .make(),
+                          subtitle: "${data[index]['p_price']}"
+                              .numCurrency
+                              .text
+                              .color(redColor)
+                              .fontFamily(semibold)
+                              .make(),
+                          trailing: const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          ).onTap(() {
+                            firestore
+                                .collection(productsCollection)
+                                .doc(data[index].id)
+                                .set({
+                              'p_wishlist':
+                                  FieldValue.arrayRemove([currentUser!.uid])
+                            }, SetOptions(merge: true));
+                          }),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
             }
           }),
     );
