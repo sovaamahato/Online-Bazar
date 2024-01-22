@@ -14,12 +14,81 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: whiteColor,
-        appBar: AppBar(
-          title: title!.text.color(darkFontGrey).make(),
-        ),
-        body: Container(
-          color: redColor,
-        ));
+      backgroundColor: whiteColor,
+      appBar: AppBar(
+        title: title!.text.color(darkFontGrey).make(),
+      ),
+      body: FutureBuilder(
+        future: FirestoreServices.searchProducts(title),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: loadingIndicator(),
+            );
+          } else if (snapshot.data!.docs.isEmpty) {
+            return 'No products found'.text.make();
+          } else {
+            var data = snapshot.data!.docs;
+            print(data);
+            var filtered = data
+                .where((element) => element['p_name']
+                    .toString()
+                    .toLowerCase()
+                    .contains(title!.toLowerCase()))
+                .toList();
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: 300,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8),
+                children: data
+                    .mapIndexed((currentValue, index) => Column(
+                          children: [
+                            //img
+
+                            Image.network(
+                              data[index]['p_imgs'][0],
+                              width: 220,
+                              height: 180,
+                              fit: BoxFit.cover,
+                            ),
+                            const Spacer(),
+                            //desciption,
+                            "${data[index]['p_name']}"
+                                .text
+                                .fontFamily(semibold)
+                                .color(darkFontGrey)
+                                .make(),
+                            //price
+                            "${data[index]['p_price']}"
+                                .text
+                                .color(redColor)
+                                .size(16)
+                                .fontFamily(bold)
+                                .make(),
+                          ],
+                        )
+                            .box
+                            .white
+                            .roundedSM
+                            .padding(EdgeInsets.all(10))
+                            .margin(const EdgeInsets.symmetric(horizontal: 12))
+                            .make()
+                            .onTap(() {
+                          Get.to(() => ItemDetails(
+                                title: "${data[index]['p_name']}",
+                                data: data[index],
+                              ));
+                        }))
+                    .toList(),
+              ),
+            );
+          }
+        },
+      ),
+    );
   }
 }
