@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_bazar/consts/consts.dart';
 import 'package:online_bazar/consts/lists.dart';
+import 'package:online_bazar/controllers/home_controllers.dart';
 import 'package:online_bazar/controllers/product_controllers.dart';
 import 'package:online_bazar/services/firestore_services.dart';
 import 'package:online_bazar/views/category_screen/item_details.dart';
 import 'package:online_bazar/views/home_screen/components/my_featured_box.dart';
+import 'package:online_bazar/views/home_screen/components/search_screen.dart';
 import 'package:online_bazar/widgets/home_buttons.dart';
 import 'package:online_bazar/widgets/loading_indicator.dart';
 
@@ -15,7 +17,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(ProductController());
+    var controller = Get.find<HomeController>();
+    var controller1 = Get.put(ProductController());
     return Container(
       padding: const EdgeInsets.all(12),
       color: lightGrey,
@@ -29,10 +32,17 @@ class HomeScreen extends StatelessWidget {
             height: 60,
             color: lightGrey,
             child: TextFormField(
-              decoration: const InputDecoration(
+              controller: controller.searchController,
+              decoration: InputDecoration(
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                suffixIcon: Icon(Icons.search),
+                suffixIcon: Icon(Icons.search).onTap(() {
+                  if (controller.searchController.text.isNotEmptyAndNotNull) {
+                    Get.to(() => SearchScreen(
+                          title: controller.searchController.text,
+                        ));
+                  }
+                }),
                 filled: true,
                 fillColor: whiteColor,
                 hintText: "Search anything...",

@@ -100,4 +100,12 @@ class FirestoreServices {
         .where('is_featured', isEqualTo: true)
         .get();
   }
+
+  //search
+  static searchProducts(title) {
+    firestore
+        .collection(productsCollection)
+        .where('p_name', isLessThanOrEqualTo: title)
+        .get();
+  }
 }
