@@ -26,10 +26,10 @@ class SearchScreen extends StatelessWidget {
               child: loadingIndicator(),
             );
           } else if (snapshot.data!.docs.isEmpty) {
-            return 'No products found'.text.make();
+            return 'No products found'.text.color(darkFontGrey).make();
           } else {
             var data = snapshot.data!.docs;
-            print(data);
+
             var filtered = data
                 .where((element) => element['p_name']
                     .toString()
@@ -39,31 +39,31 @@ class SearchScreen extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisExtent: 300,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8),
-                children: data
+                children: filtered
                     .mapIndexed((currentValue, index) => Column(
                           children: [
                             //img
 
                             Image.network(
-                              data[index]['p_imgs'][0],
+                              filtered[index]['p_imgs'][0],
                               width: 220,
                               height: 180,
                               fit: BoxFit.cover,
                             ),
                             const Spacer(),
                             //desciption,
-                            "${data[index]['p_name']}"
+                            "${filtered[index]['p_name']}"
                                 .text
                                 .fontFamily(semibold)
                                 .color(darkFontGrey)
                                 .make(),
                             //price
-                            "${data[index]['p_price']}"
+                            "${filtered[index]['p_price']}"
                                 .text
                                 .color(redColor)
                                 .size(16)
@@ -74,13 +74,13 @@ class SearchScreen extends StatelessWidget {
                             .box
                             .white
                             .roundedSM
-                            .padding(EdgeInsets.all(10))
+                            .padding(const EdgeInsets.all(10))
                             .margin(const EdgeInsets.symmetric(horizontal: 12))
                             .make()
                             .onTap(() {
                           Get.to(() => ItemDetails(
-                                title: "${data[index]['p_name']}",
-                                data: data[index],
+                                title: "${filtered[index]['p_name']}",
+                                data: filtered[index],
                               ));
                         }))
                     .toList(),

@@ -103,9 +103,6 @@ class FirestoreServices {
 
   //search
   static searchProducts(title) {
-    firestore
-        .collection(productsCollection)
-        .where('p_name', isLessThanOrEqualTo: title)
-        .get();
+    return firestore.collection(productsCollection).get();
   }
 }
