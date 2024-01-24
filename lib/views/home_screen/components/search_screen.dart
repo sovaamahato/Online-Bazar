@@ -26,7 +26,7 @@ class SearchScreen extends StatelessWidget {
               child: loadingIndicator(),
             );
           } else if (snapshot.data!.docs.isEmpty) {
-            return 'No products found'.text.color(darkFontGrey).make();
+            return 'No products found'.text.color(darkFontGrey).makeCentered();
           } else {
             var data = snapshot.data!.docs;
 

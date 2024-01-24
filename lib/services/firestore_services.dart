@@ -18,6 +18,13 @@ class FirestoreServices {
         .snapshots();
   }
 
+  static getSubcategoryProducts(title) {
+    return firestore
+        .collection(productsCollection)
+        .where('p_subcategory', isEqualTo: title)
+        .snapshots();
+  }
+
   //get cart items
   static getCart(uid) {
     return firestore
